@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import fs from "fs";
 import { PDFParse } from 'pdf-parse';
+import chunkText from "./chunk.js";
 
 const app=express();
 const port=3000;
@@ -18,6 +19,8 @@ app.post('/upload', upload.single('pdf'),  async(req, res)=> {
 
 	const pdfData = await parser.getText();
 	console.log(pdfData.text);
+    const chunks = chunkText(pdfData.text);
+    console.log("Number of chunks=",chunks.length);
     res.json({
         message: "PDF processed successfully",
         filename: req.file.originalname,
