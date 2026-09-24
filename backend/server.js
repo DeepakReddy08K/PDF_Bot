@@ -1,8 +1,12 @@
 import express from "express";
 import multer from "multer";
 import fs from "fs";
+import dotenv from "dotenv";
+dotenv.config();
 import { PDFParse } from 'pdf-parse';
 import chunkText from "./chunk.js";
+import createEmbedding from "./embeddings.js";
+console.log("API key loaded:", !!process.env.GEMINI_API_KEY);
 
 const app=express();
 const port=3000;
@@ -11,6 +15,21 @@ let fileName;
 app.get("/",(req,res)=>{
     console.log("Got a get request");
     res.send("<h1>Hello</h1>");
+});
+app.get("/test-embedding", async (req, res) => {
+    try {
+        const vector = await createEmbedding("This is a test sentence.");
+
+        console.log("Embedding size:", vector.length);
+
+        res.json({
+            size: vector.length,
+            firstValues: vector.slice(0, 5)
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Embedding failed" });
+    }
 });
 app.post('/upload', upload.single('pdf'),  async(req, res)=> {
   try{
