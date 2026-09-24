@@ -8,7 +8,11 @@ app.get("/",(req,res)=>{
     res.send("<h1>Hello</h1>");
 });
 app.post('/upload', upload.single('pdf'),  (req, res)=> {
-  console.log(req);
+  console.log(req.file);
+  res.json({
+    message:"PDF uploaded successfully",
+    filename:req.file.originalname
+  });
 });
 app.listen(port,()=>{
     console.log("Server running on port $",{port});
