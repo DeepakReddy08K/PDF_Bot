@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import cors from "cors";
 import multer from "multer";
 import fs from "fs";
 import { PDFParse } from 'pdf-parse';
@@ -12,6 +13,7 @@ import generateAnswer from "./generateAnswer.js";
 console.log("API key loaded:", !!process.env.GEMINI_API_KEY);
 
 const app=express();
+app.use(cors());
 app.use(express.json());
 const port=3000;
 const upload = multer({ dest: 'uploads/' })

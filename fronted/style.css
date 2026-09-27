@@ -1,0 +1,17 @@
+body {
+    background: #f5f7fa;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+#answer {
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+#uploadStatus {
+    font-size: 14px;
+}
