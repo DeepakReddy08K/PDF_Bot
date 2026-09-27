@@ -15,15 +15,21 @@ const app=express();
 app.use(express.json());
 const port=3000;
 const upload = multer({ dest: 'uploads/' })
-let fileName;
 app.get("/",(req,res)=>{
     console.log("Got a get request");
     res.send("<h1>Hello</h1>");
 });
 app.post('/upload', upload.single('pdf'),  async(req, res)=> {
+    let fileName;
   try{
+    if (!req.file) {
+        return res.status(400).json({
+            error: "PDF file is required"
+        });
+    }
     const documentId = randomUUID();
-    fileName=req.file.path;
+    fileName = req.file.path;
+    
     const parser = new PDFParse({url:fileName});
 
 	const pdfData = await parser.getText();
@@ -95,12 +101,11 @@ app.post("/ask", async (req, res) => {
         });
 
         console.log("Retrieved IDs:", results.ids);
-        console.log("Retrieved chunks:", results.documents[0]);
         const answer = await generateAnswer(
             question,
             results.documents[0]
         );
-        console.log(answer)
+        console.log("got an ans of length",answer.length)
         res.json({
             question,
             answer
