@@ -3,6 +3,7 @@
 A simple RAG application that lets users upload a PDF and ask questions about its content.
 
 The application:
+
 - Extracts text from the PDF
 - Splits the text into chunks
 - Generates embeddings using Gemini
@@ -10,7 +11,7 @@ The application:
 - Retrieves relevant chunks for each question
 - Uses Gemini to generate the final answer
 
-### Tech Stack
+## Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript, Bootstrap
 - **Backend:** Node.js, Express.js
@@ -22,7 +23,7 @@ The application:
 ### 1. Clone the repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone https://github.com/DeepakReddy08K/PDF_Bot.git
 cd PDF_Bot
 ```
 
@@ -35,16 +36,17 @@ npm install
 
 ### 3. Create `.env`
 
-Inside the `backend` folder:
+Create a `.env` file inside the `backend` folder:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key
-
 CHROMA_HOST=your_chroma_host
 CHROMA_TENANT=your_chroma_tenant
 CHROMA_DATABASE=your_chroma_database
 CHROMA_API_KEY=your_chroma_api_key
 ```
+
+Do not upload the `.env` file to GitHub.
 
 ### 4. Start the backend
 
@@ -52,7 +54,7 @@ CHROMA_API_KEY=your_chroma_api_key
 node server.js
 ```
 
-Backend runs on:
+The backend will run on:
 
 ```text
 http://localhost:3000
@@ -63,7 +65,7 @@ http://localhost:3000
 Open another terminal:
 
 ```bash
-cd frontend
+cd fronted
 npx serve . -l 5500
 ```
 
@@ -74,5 +76,3 @@ http://localhost:5500
 ```
 
 Upload a PDF and start asking questions.
-
-> Make sure `.env` and API keys are not committed to GitHub.
