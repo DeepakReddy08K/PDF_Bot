@@ -7,6 +7,7 @@ import chunkText from "./chunk.js";
 import createEmbeddings from "./embeddings.js";
 import chromaClient from "./chroma.js"
 import { randomUUID } from "crypto";
+import generateAnswer from "./generateAnswer.js";
 
 console.log("API key loaded:", !!process.env.GEMINI_API_KEY);
 
@@ -94,11 +95,15 @@ app.post("/ask", async (req, res) => {
         });
 
         console.log("Retrieved IDs:", results.ids);
-        console.log("Retrieved chunks:", results.documents);
-
+        console.log("Retrieved chunks:", results.documents[0]);
+        const answer = await generateAnswer(
+            question,
+            results.documents[0]
+        );
+        console.log(answer)
         res.json({
             question,
-            results
+            answer
         });
 
     } catch (error) {
